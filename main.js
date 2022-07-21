@@ -1,7 +1,3 @@
-const etchContainer = document.getElementById("etch-container");
-let rows = document.getElementsByClassName("rows");
-let columns = document.getElementsByClassName("columns");
-
 
 
 //Function to change grid size
@@ -16,16 +12,45 @@ function changeGridSizeBtn() {
         alert("Number must be between 2 and 100!");
         changeGridSizeBtn();
     }
-}
 
+    let size = gridAnswer;
+    gridSize(size);
 
-//Creates the rows
-function createRow(rowNum) {
-    for (r = 0; r <= rowNum; r++) {
-        let row = document.createElement("div");
-        etchContainer.appendChild(row).className = "rows";
+    //Function to create grid of divs
+    function gridSize(size) {
+        let etchContainer = document.getElementById("etch-container");
+        etchContainer.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+        etchContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+        for (i = 0; i < `${size}` * `${size}`; i++) {
+            let squares = document.createElement("div");
+            squares.addEventListener("mouseover", function () {
+                squares.style.backgroundColor = "pink";
+            });
+            etchContainer.appendChild(squares).className = "little-squares";
+           
+            
+        let reset = document.getElementById('reset');
+        reset.addEventListener('click', resetBoard =>{
+            squares.style.backgroundColor = 'black';
+        });
+        
+            
+            /*etchContainer.insertAdjacentElement("beforeend", squares); <-------Youtube tutorial, but why 
+            can't I just use appendChild() like above?*/
+        
+        }
     }
+    //gridSize(16);
+
 }
+
+
+
+
+
+
+
 
 
 
@@ -42,8 +67,7 @@ PSUEDO-CODE:
 - Set size of div to 500px x 500px - ***DONE
 
 
-- Function that creates rows
-
+- Function that creates rows *****DONE <-----gridSize does this for both.
 - Function that creates columns
 
 - Function that runs the making of rows and columns based on users input.
@@ -52,7 +76,7 @@ PSUEDO-CODE:
 
 
 - Add "mouseover" event on "etch-container" 
-    - This runs a function that changed the style.backgroundcolor of each grid square
+    - This runs a function that changed the style.backgroundcolor of each grid square ****DONE
 
 - Create another "reset.css" - ***DONE
     - This is will be nested in another function 
